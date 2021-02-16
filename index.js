@@ -35,7 +35,7 @@ app.post('/webhook',function(req,res){
     //     }
     // }
     console.log(req.body.entry[0].messaging)
-    sendText(msg[0].event.sender.id,"salut ca va,comment va tu ")
+    //sendText(msg[0].event.sender.id,"salut ca va,comment va tu ")
     res.sendStatus(200);
 })
 
