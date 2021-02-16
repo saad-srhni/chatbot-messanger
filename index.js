@@ -26,10 +26,9 @@ app.get('/webhook',function(req,res){
 
 app.post('/webhook',function(req,res){
     let msg=req.body.entry[0].messaging;
-    for(let i=0;i<msg.length;i++){
-        let event = msg[i];
-        let sender=event.sender.id;
-        console.log("======="+req.body.entry[0].messaging[i])
+    for(let i=0;i<5;i++){
+        let sender=msg[i].sender.id;
+        console.log("=======m="+req.body.entry[0].messaging[i].message)
         sendText(sender,"Text hello")
     }
     console.log("test  +=++"+req.body.entry[0].messaging[0].sender.id)
