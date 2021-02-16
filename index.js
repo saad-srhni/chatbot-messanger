@@ -41,10 +41,10 @@ function sendText(sender,text){
     let msgData = {text:text}
     request({
         url:"https://graph.facebook.com/me/messages",
-        qs:{access_token , token},
+        qs:{access_token : token},
         method : "POST",
         json:{
-            receipt:{id:sender},
+            recipient:{id:sender},
             message:msgData
         }
     },function(error,esponse,body){
