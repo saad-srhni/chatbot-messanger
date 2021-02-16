@@ -49,7 +49,7 @@ function sendText(sender,text){
             recipient:{id:sender},
             message:msgData
         }
-    },function(error,esponse,body){
+    },function(error,response,body){
         if(error){
             console.log("sending error")
         }else if(response.body.error){
