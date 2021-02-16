@@ -28,7 +28,7 @@ app.post('/webhook',function(req,res){
     let msg=req.body.entry[0].messaging;
         console.log("hgfhgttttttttttfhg"+req.body.entry)
         let sender=msg[0].sender.id;
-        console.log("====))m="+req.body.entry.messaging[0])
+        console.log("====))m="+req.body.entry[0])
         if(req.body.entry[0].messaging[0] && req.body.entry[0].messaging[0].text)
         sendText(sender,"Text hello")
     console.log("test  +=++"+req.body.entry[0].messaging[0].sender.id)
@@ -38,7 +38,7 @@ app.post('/webhook',function(req,res){
 function sendText(sender,text){
     let msgData = {text:text}
     request({
-        url:"https://graph.facebook.com/v7.0/me/messages",
+        url:"https://graph.facebook.com/v9.0/me/messages",
         qs:{access_token : token},
         method : "POST",
         json:{
