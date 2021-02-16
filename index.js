@@ -25,7 +25,7 @@ app.get('/webhook',function(req,res){
 })
 
 app.post('/webhook',function(req,res){
-    let msg=req.body.entry[0].messaging_events;
+    //let msg=req.body.entry[0].messaging_events;
     // for(let i=0;i<msg.length;i++){
     //     let event = msg[i];
     //     let sender=event.sender.id;
@@ -34,8 +34,8 @@ app.post('/webhook',function(req,res){
     //         sendText(sender,"Text "+ text.substring(0,100))
     //     }
     // }
-    console.log('hello')
-    sendText(msg[0].event.sender.id,"salut ca va,comment va tu ")
+    console.log(req.body)
+    //sendText(msg[0].event.sender.id,"salut ca va,comment va tu ")
     res.sendStatus(200);
 })
 
