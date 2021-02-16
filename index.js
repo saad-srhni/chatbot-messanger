@@ -35,6 +35,7 @@ app.post('/webhook',function(req,res){
     //     }
     // }
     console.log('hello')
+    sendText(sender,"salut ca va,comment va tu ")
     res.sendStatus(200);
 })
 
