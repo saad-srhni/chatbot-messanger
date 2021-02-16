@@ -28,7 +28,8 @@ app.post('/webhook',function(req,res){
     console.log(req.body.entry[0].messaging)
     console.log(req.body.entry[0].messaging[0])
     if(req.body.entry[0].messaging[0].message['text'])
-        sendText(req.body.entry[0].messaging[0].sender.id,"Text hello"+req.body.entry[0].messaging[0].message.text)
+    if(req.body.entry[0].messaging[0].message['text'] == 'Comment vas-tu ?')
+        sendText(req.body.entry[0].messaging[0].sender.id,"Très bien et vous ?")
     // let msg=req.body.entry[0].messaging;
     //     console.log("hgfhgttttttttttfhg"+req.body.entry)
     //     let sender=msg[0].sender.id;
