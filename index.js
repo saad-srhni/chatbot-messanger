@@ -26,6 +26,7 @@ app.get('/webhook',function(req,res){
 
 app.post('/webhook',function(req,res){
     let msg=req.body.entry[0].messaging;
+        console.log(req.body)
         let sender=msg[0].sender.id;
         console.log("=======m="+req.body.entry[0].messaging[0].message[0])
         if(req.body.entry[0].messaging[0] && req.body.entry[0].messaging[0].text)
