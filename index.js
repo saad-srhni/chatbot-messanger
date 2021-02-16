@@ -34,7 +34,7 @@ app.post('/webhook',function(req,res){
     //         sendText(sender,"Text "+ text.substring(0,100))
     //     }
     // }
-    console.log("test  ++++"+req.body.entry[0].messaging[0])
+    console.log("test  ++++"+req.body.entry[0].messaging[0].sender)
     //sendText(msg[0].event.sender.id,"salut ca va,comment va tu ")
     res.sendStatus(200);
 })
