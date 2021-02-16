@@ -16,8 +16,8 @@ app.get('/',function(req,res){
     res.send('hello world')
 })
 
-app.get('/chatbot',function(req,res){
-    if(req.query['hub.verify_token'] === 'jhgxjqsgxjsqgxjgqsjx'){
+app.get('/webhook',function(req,res){
+    if(req.query['hub.verify_token'] === 'sjsxqs76hgfhg5454gfdgfdJ'){
         res.send(req.query['hub.challenge'])
     }
     res.send('token non valid');
