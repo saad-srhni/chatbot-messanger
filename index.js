@@ -52,7 +52,7 @@ function sendText(sender,text){
         if(error){
             console.log("sending error")
         }else if(response.body.error){
-            console.log("error body")
+            console.log("error body"+response.body.error)
         }
     })
 }
