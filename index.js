@@ -12,7 +12,7 @@ app.set('port', (process.env.PORT || 5000));
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 
-token="EAANJgBYQmhcBAL0IsuyXQCWvRLpNkBTEZCfip6GuwjkZAW7tyctyTcQ6553ZC8TPezCZAVNOtxbNBRdZAZCuCj7uR87od9tfpdfYrZBZC9Qh4O7N9N4SloYi3Lp0WqI4ChZAvV0QxE1qjQAEjRBeqeIZBkhwlCp0A1FRWJzbAGgygLagZDZD"
+let token="EAANJgBYQmhcBAL0IsuyXQCWvRLpNkBTEZCfip6GuwjkZAW7tyctyTcQ6553ZC8TPezCZAVNOtxbNBRdZAZCuCj7uR87od9tfpdfYrZBZC9Qh4O7N9N4SloYi3Lp0WqI4ChZAvV0QxE1qjQAEjRBeqeIZBkhwlCp0A1FRWJzbAGgygLagZDZD"
 app.get('/',function(req,res){
     res.send('hello world')
 })
@@ -26,7 +26,7 @@ app.get('/webhook',function(req,res){
 
 app.post('/webhook',function(req,res){
     let msg=req.body.entry[0].messaging_events;
-    for(int i=0;i<msg.length;i++){
+    for(let i=0;i<msg.length;i++){
         let event = msg[i];
         let sender=event.sender.id;
         if(event.message && event.message.text){
