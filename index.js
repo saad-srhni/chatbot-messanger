@@ -26,16 +26,15 @@ app.get('/webhook',function(req,res){
 
 app.post('/webhook',function(req,res){
     let msg=req.body.entry[0].messaging;
-    // for(let i=0;i<msg.length;i++){
-    //     let event = msg[i];
-    //     let sender=event.sender.id;
-    //     if(event.message && event.message.text){
-    //         let text = event.message.text;
-    //         sendText(sender,"Text "+ text.substring(0,100))
-    //     }
-    // }
+    for(let i=0;i<msg.length;i++){
+        let event = msg[i];
+        let sender=event.sender.id;
+        if(event.message && event.message.text){
+            let text = event.message.text;
+            sendText(sender,"Text "+ text.substring(0,100))
+        }
+    }
     console.log("test  +=++"+req.body.entry[0].messaging[0].sender.id)
-    sendText('3489031801207251',"salut ca va,comment va tu ")
     res.sendStatus(200);
 })
 
