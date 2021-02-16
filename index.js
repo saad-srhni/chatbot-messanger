@@ -26,9 +26,9 @@ app.get('/webhook',function(req,res){
 
 app.post('/webhook',function(req,res){
     let msg=req.body.entry[0].messaging;
-        console.log("hgfhgttttttttttfhg"+req.body.entry[0].messaging.length)
+        console.log("hgfhgttttttttttfhg"+req.body.entry[0].messaging)
         let sender=msg[0].sender.id;
-        console.log("=======m="+req.body.entry[0].messaging[0].message[0])
+        console.log("====))m="+req.body.entry.messaging[0])
         if(req.body.entry[0].messaging[0] && req.body.entry[0].messaging[0].text)
         sendText(sender,"Text hello")
     console.log("test  +=++"+req.body.entry[0].messaging[0].sender.id)
@@ -47,9 +47,7 @@ function sendText(sender,text){
         }
     },function(error,response,body){
         if(error){
-            console.log("sending error")
-        }else if(response.body.error){
-            console.log("error body"+response.body.error)
+            console.log("sending error"+error)
         }
     })
 }
