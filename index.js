@@ -26,10 +26,11 @@ app.get('/webhook', function (req, res) {
 
 app.post('/webhook', function (req, res) {
     console.log(req.body.entry[0].messaging)
-    console.log(req.body.entry[0].messaging[0])
+    console.log(req.body.entry[0].messaging[0].attachments)
     if (req.body.entry[0].messaging[0].message['text']) {
         if (req.body.entry[0].messaging[0].message['text'].localeCompare('Comment vas-tu ?') == 0) {
             sendText(req.body.entry[0].messaging[0].sender.id, "Très bien et vous ?")
+
         }
         else sendText(req.body.entry[0].messaging[0].sender.id, req.body.entry[0].messaging[0].message['text'])
     }
