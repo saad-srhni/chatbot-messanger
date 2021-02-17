@@ -44,52 +44,42 @@ app.post('/webhook', function (req, res) {
 function sendText(sender, msgData, type) {
     if (type == 1) {
         console.log("=======================")
-        request({
-            url: "https://graph.facebook.com/v9.0/me/messages",
-            qs: { access_token: token },
-            method: "POST",
-            json: {
-                recipient: { id: sender },
-                message: {
-                    text: msgData,
-                    quick_replies: [
-                        {
-                            content_type: "text",
-                            title: "Je vais bien,merci",
-                            payload: "PYLOAD_ONE"
-                        },
-                        {
-                            content_type: "text",
-                            title: "Non, ça ne va pas",
-                            payload: "PYLOAD_Two"
-                        }
-                    ]
+        msgData = {
+            text: msgData,
+            quick_replies: [
+                {
+                    content_type: "text",
+                    title: "Je vais bien,merci",
+                    payload: "PYLOAD_ONE"
+                },
+                {
+                    content_type: "text",
+                    title: "Non, ça ne va pas",
+                    payload: "PYLOAD_Two"
                 }
-            }
-        }, function (error, response, body) {
-            if (error) {
-                console.log("sending error" + error)
-            }
-        })
+            ]
+        }
     } else {
         console.log("-----------------------")
-        request({
-            url: "https://graph.facebook.com/v9.0/me/messages",
-            qs: { access_token: token },
-            method: "POST",
-            json: {
-                recipient: { id: sender },
-                message: {
-                    text: msgData,
-                }
-            }
-        }, function (error, response, body) {
-            if (error) {
-                console.log("sending error" + error)
-            }
-        })
+        msgData = {
+            text: msgData
+        }
     }
-
+    request({
+        url: "https://graph.facebook.com/v9.0/me/messages",
+        qs: { access_token: token },
+        method: "POST",
+        json: {
+            recipient: { id: sender },
+            message: {
+                ...msgData,
+            }
+        }
+    }, function (error, response, body) {
+        if (error) {
+            console.log("sending error" + error)
+        }
+    })
 }
 
 app.listen(app.get('port'), function () {
