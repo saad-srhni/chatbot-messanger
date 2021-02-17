@@ -35,7 +35,7 @@ app.post('/webhook', function (req, res) {
         else {
             sendText(idsender, req.body.entry[0].messaging[0].message['text'], 0)
         }
-    } else if (JSON.stringify(req.body.entry[0].messaging[0].message['attachments'])['type'].localeCompare('image') == 0) {
+    } else if (req.body.entry[0].messaging[0].message['attachments']['type'].localeCompare('image') == 0) {
         sendText(idsender, "Je ne sais pas traiter ce type de demande", 0)
     }
     res.sendStatus(200);
