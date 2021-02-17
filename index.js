@@ -53,19 +53,7 @@ app.post('/webhook', function (req, res) {
 
 function sendText(sender, msgData, type) {
     if (type) msgData = {
-        ...msgData,
-        quick_replies: [
-            {
-                content_type: "text",
-                title: "Je vais bien,merci",
-                payload: "PYLOAD_ONE"
-            },
-            {
-                content_type: "text",
-                title: "Non, ça ne va pas",
-                payload: "PYLOAD_Two"
-            }
-        ]
+        ...msgData
     }
     request({
         url: "https://graph.facebook.com/v9.0/me/messages",
@@ -74,7 +62,19 @@ function sendText(sender, msgData, type) {
         json: {
             recipient: { id: sender },
             message: {
-                ...msgData
+                ...msgData,
+                quick_replies: [
+                    {
+                        content_type: "text",
+                        title: "Je vais bien,merci",
+                        payload: "PYLOAD_ONE"
+                    },
+                    {
+                        content_type: "text",
+                        title: "Non, ça ne va pas",
+                        payload: "PYLOAD_Two"
+                    }
+                ]
             },
         }
     }, function (error, response, body) {
