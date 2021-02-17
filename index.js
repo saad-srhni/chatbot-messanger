@@ -53,14 +53,16 @@ function sendText(sender, text) {
         method: "POST",
         json: {
             recipient: { id: sender },
-            message: msgData,
-            quick_replies: [
-                {
-                    content_type: "text",
-                    title: "salam cv 3lik",
-                    payload: "jhqgdsqdsqgdh"
-                }
-            ],
+            message: {
+                ...msgData,
+                quick_replies: [
+                    {
+                        content_type: "text",
+                        title: "salam cv 3lik",
+                        payload: "PYLOAD_ONE"
+                    }
+                ]
+            },
         }
     }, function (error, response, body) {
         if (error) {
