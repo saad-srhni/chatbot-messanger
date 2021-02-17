@@ -28,6 +28,7 @@ app.post('/webhook', function (req, res) {
     console.log(req.body.entry[0].messaging)
     //console.log(req.body.entry[0].messaging[0]['attachments'])
     let msgData;
+    let idsender = req.body.entry[0].messaging[0].sender.id;
     if (req.body.entry[0].messaging[0].message['text']) {
         if (req.body.entry[0].messaging[0].message['text'].localeCompare('Comment vas-tu ?') == 0) {
             msgData = {
@@ -37,28 +38,22 @@ app.post('/webhook', function (req, res) {
                         'content_type': 'text',
                         'title': "Je vais bien, merci",
                         'payload': 'PICK_ACTION'
-                    },
-                    {
-                        'content_type': 'text',
-                        'title': " Non, ça ne va pas",
-                        'payload': 'PICK_ACTION'
-
                     }
                 ]
             }
-            sendText(req.body.entry[0].messaging[0].sender.id, msgData);
+            sendText(idsender, msgData);
         }
         else {
             msgData = {
                 text: req.body.entry[0].messaging[0].message['text'],
             }
-            sendText(req.body.entry[0].messaging[0].sender.id, msgData);
+            sendText(idsender, msgData);
         }
     } else if (req.body.entry[0].messaging[0]['attachments']) {
         msgData = {
             text: "Je ne sais pas traiter ce type de demande"
         }
-        sendText(req.body.entry[0].messaging[0].sender.id, msgData);
+        sendText(idsender, msgData);
     }
     // let msg=req.body.entry[0].messaging;
     //     console.log("hgfhgttttttttttfhg"+req.body.entry)
