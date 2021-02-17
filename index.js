@@ -28,60 +28,66 @@ app.post('/webhook', function (req, res) {
     console.log(req.body.entry[0].messaging)
     console.log(req.body.entry[0].messaging[0]['attachments'])
     let idsender = req.body.entry[0].messaging[0].sender.id;
-    let msgData;
     if (req.body.entry[0].messaging[0].message['text']) {
         if (req.body.entry[0].messaging[0].message['text'].localeCompare('Comment vas-tu ?') == 0) {
-            msgData = {
-                text: "Très bien et vous ?"
-            }
-            sendText(idsender, msgData, 1)
+            sendText(idsender, "Très bien et vous ?", 1)
         }
         else {
-            msgData = {
-                text: req.body.entry[0].messaging[0].message['text']
-            }
-            sendText(idsender, msgData, 0)
+            sendText(idsender, req.body.entry[0].messaging[0].message['text'], 0)
         }
     } else if (req.body.entry[0].messaging[0]['attachments']) {
-        msgData = {
-            text: "Je ne sais pas traiter ce type de demande"
-        }
-        sendText(idsender, msgData, 0)
+        sendText(idsender, "Je ne sais pas traiter ce type de demande", 0)
     }
     res.sendStatus(200);
 })
 
 function sendText(sender, msgData, type) {
     if (type) {
-        msgData = {
-            text: msgData['text'],
-            quick_replies: [
-                {
-                    content_type: "text",
-                    title: "Je vais bien,merci",
-                    payload: "PYLOAD_ONE"
-                },
-                {
-                    content_type: "text",
-                    title: "Non, ça ne va pas",
-                    payload: "PYLOAD_Two"
+        request({
+            url: "https://graph.facebook.com/v9.0/me/messages",
+            qs: { access_token: token },
+            method: "POST",
+            json: {
+                recipient: { id: sender },
+                message: {
+                    text: msgData,
+                    quick_replies: [
+                        {
+                            content_type: "text",
+                            title: "Je vais bien,merci",
+                            payload: "PYLOAD_ONE"
+                        },
+                        {
+                            content_type: "text",
+                            title: "Non, ça ne va pas",
+                            payload: "PYLOAD_Two"
+                        }
+                    ]
                 }
-            ]
-        }
+            }
+        }, function (error, response, body) {
+            if (error) {
+                console.log("sending error" + error)
+            }
+        })
+    } else {
+        request({
+            url: "https://graph.facebook.com/v9.0/me/messages",
+            qs: { access_token: token },
+            method: "POST",
+            json: {
+                recipient: { id: sender },
+                message: {
+                    text: msgData,
+                }
+            }
+        }, function (error, response, body) {
+            if (error) {
+                console.log("sending error" + error)
+            }
+        })
     }
-    request({
-        url: "https://graph.facebook.com/v9.0/me/messages",
-        qs: { access_token: token },
-        method: "POST",
-        json: {
-            recipient: { id: sender },
-            message: msgData
-        }
-    }, function (error, response, body) {
-        if (error) {
-            console.log("sending error" + error)
-        }
-    })
+
 }
 
 app.listen(app.get('port'), function () {
