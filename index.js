@@ -26,7 +26,7 @@ app.get('/webhook', function (req, res) {
 
 app.post('/webhook', function (req, res) {
     console.log(req.body.entry[0].messaging)
-    console.log(JSON.stringify(req.body.entry[0].messaging[0]['attachments']))
+    console.log(JSON.stringify(req.body.entry[0].messaging[0].message['attachments']))
     let idsender = req.body.entry[0].messaging[0].sender.id;
     if (req.body.entry[0].messaging[0].message['text']) {
         if (req.body.entry[0].messaging[0].message['text'].localeCompare('Comment vas-tu ?') == 0) {
@@ -35,7 +35,7 @@ app.post('/webhook', function (req, res) {
         else {
             sendText(idsender, req.body.entry[0].messaging[0].message['text'], 0)
         }
-    } else if (req.body.entry[0].messaging[0]['attachments']['type'].localeCompare('image') == 0) {
+    } else if (req.body.entry[0].messaging[0].message['attachments']['type'].localeCompare('image') == 0) {
         sendText(idsender, "Je ne sais pas traiter ce type de demande", 0)
     }
     res.sendStatus(200);
