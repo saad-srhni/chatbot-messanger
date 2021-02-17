@@ -46,24 +46,26 @@ app.post('/webhook', function (req, res) {
 })
 
 function sendText(sender, text) {
-    let msgData = { text: text }
+    let msgData = {
+        text: text,
+        quick_replies: [
+            {
+                content_type: text,
+                title: "salam cv",
+            },
+            {
+                content_type: text,
+                title: "salam cv",
+            }
+        ]
+    }
     request({
         url: "https://graph.facebook.com/v9.0/me/messages",
         qs: { access_token: token },
         method: "POST",
         json: {
             recipient: { id: sender },
-            message: msgData,
-            quick_replies: [
-                {
-                    content_type: text,
-                    title: "salam cv",
-                },
-                {
-                    content_type: text,
-                    title: "salam cv",
-                }
-            ],
+            message: msgData
         }
     }, function (error, response, body) {
         if (error) {
