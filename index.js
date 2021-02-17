@@ -77,7 +77,7 @@ function sendText(sender, msgData) {
         method: "POST",
         json: {
             recipient: { id: sender },
-            message: msgData
+            message: { ...msgData },
         }
     }, function (error, response, body) {
         if (error) {
