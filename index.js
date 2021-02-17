@@ -27,13 +27,33 @@ app.get('/webhook', function (req, res) {
 app.post('/webhook', function (req, res) {
     console.log(req.body.entry[0].messaging)
     //console.log(req.body.entry[0].messaging[0]['attachments'])
+    let msgData;
     if (req.body.entry[0].messaging[0].message['text']) {
         if (req.body.entry[0].messaging[0].message['text'].localeCompare('Comment vas-tu ?') == 0) {
-            sendText(req.body.entry[0].messaging[0].sender.id, "Très bien et vous ?")
+            msgData = {
+                text: "Très bien et vous ?",
+                quick_replies: [
+                    {
+                        'content_type': 'text',
+                        'title': "Je vais bien, merci",
+                        'payload': 'PICK_ACTION'
+                    },
+                    {
+                        'content_type': 'text',
+                        'title': " Non, ça ne va pas",
+                        'payload': 'PICK_ACTION'
 
-
+                    }
+                ]
+            }
+            sendText(req.body.entry[0].messaging[0].sender.id, msgData);
         }
-        else sendText(req.body.entry[0].messaging[0].sender.id, req.body.entry[0].messaging[0].message['text'])
+        else {
+            msgData = {
+                text: req.body.entry[0].messaging[0].message['text'],
+            }
+            sendText(req.body.entry[0].messaging[0].sender.id, req.body.entry[0].messaging[0].message['text']);
+        }
     }
     // let msg=req.body.entry[0].messaging;
     //     console.log("hgfhgttttttttttfhg"+req.body.entry)
@@ -45,17 +65,7 @@ app.post('/webhook', function (req, res) {
     res.sendStatus(200);
 })
 
-function sendText(sender, text) {
-    let msgData = {
-        text: text,
-        quick_replies: [
-            {
-                'content_type': 'text',
-                'title': "salam cv",
-                'payload': 'PICK_ACTION'
-            },
-        ]
-    }
+function sendText(sender, msgData) {
     request({
         url: "https://graph.facebook.com/v9.0/me/messages",
         qs: { access_token: token },
