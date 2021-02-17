@@ -58,6 +58,7 @@ function sendText(sender, text) {
                 {
                     "content_type": "text",
                     "title": "Red",
+                    "payload": "jhqgdsqdsqgdh"
                 }
             ],
         }
