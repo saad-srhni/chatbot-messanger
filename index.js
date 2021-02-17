@@ -42,7 +42,7 @@ app.post('/webhook', function (req, res) {
 })
 
 function sendText(sender, msgData, type) {
-    if (type) {
+    if (type == 1) {
         request({
             url: "https://graph.facebook.com/v9.0/me/messages",
             qs: { access_token: token },
