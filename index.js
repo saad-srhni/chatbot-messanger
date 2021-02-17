@@ -56,9 +56,8 @@ function sendText(sender, text) {
             message: msgData,
             quick_replies: [
                 {
-                    content_type: 'text',
-                    title: "salam cv",
-                    payload: "POSTBACK_PAYLOAD",
+                    "content_type": "text",
+                    "title": "Red",
                 }
             ],
         }
