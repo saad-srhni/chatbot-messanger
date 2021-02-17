@@ -32,46 +32,41 @@ app.post('/webhook', function (req, res) {
     if (req.body.entry[0].messaging[0].message['text']) {
         if (req.body.entry[0].messaging[0].message['text'].localeCompare('Comment vas-tu ?') == 0) {
             msgData = {
-                text: "Très bien et vous ?",
-                quick_replies: [
-                    {
-                        content_type: "text",
-                        title: "Je vais bien,merci",
-                        payload: "PYLOAD_ONE"
-                    },
-                    {
-                        content_type: "text",
-                        title: "Non, ça ne va pas",
-                        payload: "PYLOAD_Two"
-                    }
-                ]
+                text: "Très bien et vous ?"
             }
-            sendText(idsender, msgData)
+            sendText(idsender, msgData, 1)
         }
         else {
             msgData = {
                 text: req.body.entry[0].messaging[0].message['text']
             }
-            sendText(idsender, msgData)
+            sendText(idsender, msgData, 1)
         }
     } else if (req.body.entry[0].messaging[0]['attachments']) {
         msgData = {
             text: "Je ne sais pas traiter ce type de demande"
         }
-        sendText(idsender, msgData)
+        sendText(idsender, msgData, 0)
     }
-    // let msg=req.body.entry[0].messaging;
-    //     console.log("hgfhgttttttttttfhg"+req.body.entry)
-    //     let sender=msg[0].sender.id;
-    //     console.log("====))m="+req.body.entry[0])
-    //     if(req.body.entry[0].messaging[0] && req.body.entry[0].messaging[0].text)
-    //     sendText(sender,"Text hello"+req.body.entry[0].messaging[0].text)
-    // console.log("test  +=++"+req.body.entry[0].messaging[0].sender.id)
     res.sendStatus(200);
 })
 
-function sendText(sender, msgData) {
-    console.log(msgData)
+function sendText(sender, msgData, type) {
+    if (type == 1) msgData = {
+        ...msgData,
+        quick_replies: [
+            {
+                content_type: "text",
+                title: "Je vais bien,merci",
+                payload: "PYLOAD_ONE"
+            },
+            {
+                content_type: "text",
+                title: "Non, ça ne va pas",
+                payload: "PYLOAD_Two"
+            }
+        ]
+    }
     request({
         url: "https://graph.facebook.com/v9.0/me/messages",
         qs: { access_token: token },
