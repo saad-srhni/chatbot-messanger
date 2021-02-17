@@ -56,9 +56,9 @@ function sendText(sender, text) {
             message: msgData,
             quick_replies: [
                 {
-                    "content_type": "text",
-                    "title": "Red",
-                    "payload": "jhqgdsqdsqgdh"
+                    content_type: "text",
+                    title: "salam cv 3lik",
+                    payload: "jhqgdsqdsqgdh"
                 }
             ],
         }
