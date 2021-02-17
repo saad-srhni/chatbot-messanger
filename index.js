@@ -54,7 +54,7 @@ app.post('/webhook', function (req, res) {
 function sendText(sender, msgData, type) {
     if (type) {
         msgData = {
-            ...msgData,
+            text: msgData['text'],
             quick_replies: [
                 {
                     content_type: "text",
