@@ -52,8 +52,13 @@ app.post('/webhook', function (req, res) {
             msgData = {
                 text: req.body.entry[0].messaging[0].message['text'],
             }
-            sendText(req.body.entry[0].messaging[0].sender.id, req.body.entry[0].messaging[0].message['text']);
+            sendText(req.body.entry[0].messaging[0].sender.id, msgData);
         }
+    } else if (req.body.entry[0].messaging[0]['attachments']) {
+        msgData = {
+            text: "Je ne sais pas traiter ce type de demande"
+        }
+        sendText(req.body.entry[0].messaging[0].sender.id, msgData);
     }
     // let msg=req.body.entry[0].messaging;
     //     console.log("hgfhgttttttttttfhg"+req.body.entry)
