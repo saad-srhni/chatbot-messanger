@@ -42,7 +42,7 @@ app.post('/webhook', function (req, res) {
             }
             sendText(idsender, msgData, 0)
         }
-    } else if (req.body.entry[0].messaging[0]['attachments'].length) {
+    } else if (req.body.entry[0].messaging[0]['attachments']) {
         msgData = {
             text: "Je ne sais pas traiter ce type de demande"
         }
@@ -52,7 +52,7 @@ app.post('/webhook', function (req, res) {
 })
 
 function sendText(sender, msgData, type) {
-    if (type == 1) msgData = {
+    if (type) msgData = {
         ...msgData,
         quick_replies: [
             {
