@@ -40,9 +40,9 @@ app.post('/webhook', function (req, res) {
             msgData = {
                 text: req.body.entry[0].messaging[0].message['text']
             }
-            sendText(idsender, msgData, 1)
+            sendText(idsender, msgData, 0)
         }
-    } else if (req.body.entry[0].messaging[0]['attachments']) {
+    } else if (req.body.entry[0].messaging[0]['attachments'].length) {
         msgData = {
             text: "Je ne sais pas traiter ce type de demande"
         }
