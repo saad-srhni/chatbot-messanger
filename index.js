@@ -33,10 +33,10 @@ app.post('/webhook', function (req, res) {
             sendText(idsender, "Très bien et vous ?", 1)
         }
         else {
-            sendText(idsender, req.body.entry[0].messaging[0].message['text'], 1)
+            sendText(idsender, req.body.entry[0].messaging[0].message['text'], 0)
         }
     } else if (req.body.entry[0].messaging[0]['attachments']) {
-        sendText(idsender, "Je ne sais pas traiter ce type de demande", 1)
+        sendText(idsender, "Je ne sais pas traiter ce type de demande", 0)
     }
     res.sendStatus(200);
 })
