@@ -60,6 +60,13 @@ app.post('/webhook', function (req, res) {
         }
         sendText(idsender, msgData)
     }
+    // let msg=req.body.entry[0].messaging;
+    //     console.log("hgfhgttttttttttfhg"+req.body.entry)
+    //     let sender=msg[0].sender.id;
+    //     console.log("====))m="+req.body.entry[0])
+    //     if(req.body.entry[0].messaging[0] && req.body.entry[0].messaging[0].text)
+    //     sendText(sender,"Text hello"+req.body.entry[0].messaging[0].text)
+    // console.log("test  +=++"+req.body.entry[0].messaging[0].sender.id)
     res.sendStatus(200);
 })
 
@@ -71,13 +78,12 @@ function sendText(sender, msgData) {
         json: {
             recipient: { id: sender },
             message: msgData
-        },
-    }
+        }
     }, function (error, response, body) {
-    if (error) {
-        console.log("sending error" + error)
-    }
-})
+        if (error) {
+            console.log("sending error" + error)
+        }
+    })
 }
 
 app.listen(app.get('port'), function () {
