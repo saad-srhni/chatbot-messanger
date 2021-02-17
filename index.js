@@ -33,7 +33,18 @@ app.post('/webhook', function (req, res) {
         if (req.body.entry[0].messaging[0].message['text'].localeCompare('Comment vas-tu ?') == 0) {
             msgData = {
                 text: "Très bien et vous ?",
-
+                quick_replies: [
+                    {
+                        content_type: "text",
+                        title: "Je vais bien,merci",
+                        payload: "PYLOAD_ONE"
+                    },
+                    {
+                        content_type: "text",
+                        title: "Non, ça ne va pas",
+                        payload: "PYLOAD_Two"
+                    }
+                ]
             }
             sendText(idsender, msgData)
         }
@@ -60,6 +71,7 @@ app.post('/webhook', function (req, res) {
 })
 
 function sendText(sender, msgData) {
+    console.log(msgData)
     request({
         url: "https://graph.facebook.com/v9.0/me/messages",
         qs: { access_token: token },
@@ -67,19 +79,7 @@ function sendText(sender, msgData) {
         json: {
             recipient: { id: sender },
             message: {
-                ...msgData,
-                quick_replies: [
-                    {
-                        content_type: "text",
-                        title: "Je vais bien,merci",
-                        payload: "PYLOAD_ONE"
-                    },
-                    {
-                        content_type: "text",
-                        title: "Non, ça ne va pas",
-                        payload: "PYLOAD_Two"
-                    }
-                ]
+                ...msgData
             },
         }
     }, function (error, response, body) {
