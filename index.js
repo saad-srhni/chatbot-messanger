@@ -31,6 +31,7 @@ app.post('/webhook', function (req, res) {
         if (req.body.entry[0].messaging[0].message['text'].localeCompare('Comment vas-tu ?') == 0) {
             sendText(req.body.entry[0].messaging[0].sender.id, "Très bien et vous ?")
 
+
         }
         else sendText(req.body.entry[0].messaging[0].sender.id, req.body.entry[0].messaging[0].message['text'])
     }
@@ -52,7 +53,17 @@ function sendText(sender, text) {
         method: "POST",
         json: {
             recipient: { id: sender },
-            message: msgData
+            message: msgData,
+            quick_replies: [
+                {
+                    content_type: text,
+                    title: "salam cv",
+                },
+                {
+                    content_type: text,
+                    title: "salam cv",
+                }
+            ],
         }
     }, function (error, response, body) {
         if (error) {
