@@ -26,7 +26,7 @@ app.get('/webhook', function (req, res) {
 
 app.post('/webhook', function (req, res) {
     console.log(req.body.entry[0].messaging)
-    console.log(req.body.entry[0].messaging[0]['attachments']['type'].localeCompare('image'))
+    console.log(req.body.entry[0].messaging[0]['attachments']['type'])
     let idsender = req.body.entry[0].messaging[0].sender.id;
     if (req.body.entry[0].messaging[0].message['text']) {
         if (req.body.entry[0].messaging[0].message['text'].localeCompare('Comment vas-tu ?') == 0) {
