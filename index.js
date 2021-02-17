@@ -50,11 +50,11 @@ function sendText(sender, text) {
         text: text,
         quick_replies: [
             {
-                content_type: text,
+                content_type: 'text',
                 title: "salam cv",
             },
             {
-                content_type: text,
+                content_type: 'text',
                 title: "salam cv",
             }
         ]
