@@ -25,34 +25,15 @@ app.get('/webhook', function (req, res) {
 })
 
 app.post('/webhook', function (req, res) {
-    //console.log(req.body.entry[0].messaging[0].attachments)
-    let msgData;
-    let idsender = req.body.entry[0].messaging[0].sender.id;
+    console.log(req.body.entry[0].messaging)
+    console.log(req.body.entry[0].messaging[0]['attachments'])
     if (req.body.entry[0].messaging[0].message['text']) {
         if (req.body.entry[0].messaging[0].message['text'].localeCompare('Comment vas-tu ?') == 0) {
-            msgData = {
-                text: "Très bien et vous ?",
-                quick_replies: [
-                    {
-                        'content_type': 'text',
-                        'title': "Je vais bien, merci",
-                        'payload': 'POSTBACK_PAYLOAD'
-                    }
-                ]
-            }
-            sendText(idsender, msgData);
+            sendText(req.body.entry[0].messaging[0].sender.id, "Très bien et vous ?")
+
+
         }
-        else {
-            msgData = {
-                text: req.body.entry[0].messaging[0].message['text'],
-            }
-            sendText(idsender, msgData);
-        }
-    } else if (req.body.entry[0].messaging[0]['attachments']) {
-        msgData = {
-            text: "Je ne sais pas traiter ce type de demande"
-        }
-        sendText(idsender, msgData);
+        else sendText(req.body.entry[0].messaging[0].sender.id, req.body.entry[0].messaging[0].message['text'])
     }
     // let msg=req.body.entry[0].messaging;
     //     console.log("hgfhgttttttttttfhg"+req.body.entry)
@@ -64,14 +45,27 @@ app.post('/webhook', function (req, res) {
     res.sendStatus(200);
 })
 
-function sendText(sender, msgData) {
+function sendText(sender, text) {
+    let msgData = {
+        text: text,
+        quick_replies: [
+            {
+                content_type: 'text',
+                title: "salam cv",
+            },
+            {
+                content_type: 'text',
+                title: "salam cv",
+            }
+        ]
+    }
     request({
         url: "https://graph.facebook.com/v9.0/me/messages",
         qs: { access_token: token },
         method: "POST",
         json: {
             recipient: { id: sender },
-            message: { ...msgData }
+            message: msgData
         }
     }, function (error, response, body) {
         if (error) {
