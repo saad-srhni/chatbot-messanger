@@ -25,35 +25,35 @@ app.get('/webhook', function (req, res) {
 })
 
 app.post('/webhook', function (req, res) {
-    console.log(req.body.entry[0].messaging[0].attachments)
-    // let msgData;
-    // let idsender = req.body.entry[0].messaging[0].sender.id;
-    // if (req.body.entry[0].messaging[0].message['text']) {
-    //     if (req.body.entry[0].messaging[0].message['text'].localeCompare('Comment vas-tu ?') == 0) {
-    //         msgData = {
-    //             text: "Très bien et vous ?",
-    //             quick_replies: [
-    //                 {
-    //                     'content_type': 'text',
-    //                     'title': "Je vais bien, merci",
-    //                     'payload': 'PICK_ACTION'
-    //                 }
-    //             ]
-    //         }
-    //         sendText(idsender, msgData);
-    //     }
-    //     else {
-    //         msgData = {
-    //             text: req.body.entry[0].messaging[0].message['text'],
-    //         }
-    //         sendText(idsender, msgData);
-    //     }
-    // } else if (req.body.entry[0].messaging[0]['attachments']) {
-    //     msgData = {
-    //         text: "Je ne sais pas traiter ce type de demande"
-    //     }
-    //     sendText(idsender, msgData);
-    // }
+    //console.log(req.body.entry[0].messaging[0].attachments)
+    let msgData;
+    let idsender = req.body.entry[0].messaging[0].sender.id;
+    if (req.body.entry[0].messaging[0].message['text']) {
+        if (req.body.entry[0].messaging[0].message['text'].localeCompare('Comment vas-tu ?') == 0) {
+            msgData = {
+                text: "Très bien et vous ?",
+                quick_replies: [
+                    {
+                        'content_type': 'text',
+                        'title': "Je vais bien, merci",
+                        'payload': 'POSTBACK_PAYLOAD'
+                    }
+                ]
+            }
+            sendText(idsender, msgData);
+        }
+        else {
+            msgData = {
+                text: req.body.entry[0].messaging[0].message['text'],
+            }
+            sendText(idsender, msgData);
+        }
+    } else if (req.body.entry[0].messaging[0]['attachments']) {
+        msgData = {
+            text: "Je ne sais pas traiter ce type de demande"
+        }
+        sendText(idsender, msgData);
+    }
     // let msg=req.body.entry[0].messaging;
     //     console.log("hgfhgttttttttttfhg"+req.body.entry)
     //     let sender=msg[0].sender.id;
