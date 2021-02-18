@@ -29,17 +29,20 @@ app.post('/webhook', function (req, res) {
     // console.log(req.body.entry[0].messaging[0].message['attachments'])
     let idsender = req.body.entry[0].messaging[0].sender.id;
     let msg = req.body.entry[0].messaging[0];
-    if (msg['message'] && msg['message']['text']) {
-        if (msg['message']['text'].localeCompare('Comment vas-tu ?') == 0) {
-            sendText(idsender, "Très bien et vous ?", 1)
+    if (msg['message']) {
+        if (msg['message']['text']) {
+            if (msg['message']['text'].localeCompare('Comment vas-tu ?') == 0) {
+                sendText(idsender, "Très bien et vous ?", 1)
+            }
+            else {
+                sendText(idsender, msg['message']['text'], 0)
+            }
+        } else if (msg['message']['attachments']) {
+            if (msg['message']['attachments']['type'].localeCompare('image') == 0)
+                sendText(idsender, "Je ne sais pas traiter ce type de demande", 0)
         }
-        else {
-            sendText(idsender, msg['message']['text'], 0)
-        }
-    } /* else if (msg['message'] && msg['message']['attachments']) {
-        if (msg['message']['attachments']['type'].localeCompare('image') == 0)
-            sendText(idsender, "Je ne sais pas traiter ce type de demande", 0)
-    } */
+    }
+
     res.sendStatus(200);
 })
 
