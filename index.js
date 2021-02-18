@@ -36,10 +36,10 @@ app.post('/webhook', function (req, res) {
         else {
             sendText(idsender, msg['message']['text'], 0)
         }
-    } else if (msg['message'] && msg['message']['attachments']) {
+    } /* else if (msg['message'] && msg['message']['attachments']) {
         if (msg['message']['attachments']['type'].localeCompare('image') == 0)
             sendText(idsender, "Je ne sais pas traiter ce type de demande", 0)
-    }
+    } */
     res.sendStatus(200);
 })
 
