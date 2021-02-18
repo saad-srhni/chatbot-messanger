@@ -38,8 +38,10 @@ app.post('/webhook', function (req, res) {
             }
         } else if (msg['message']['attachments']) {
             console.log(req.body.entry[0].messaging[0].message['attachments'])
-            if (msg['message']['attachments']['type'] == 'image')
+            if (msg['message']['attachments']['type'] == 'image') {
                 sendText(idsender, "Je ne sais pas traiter ce type de demande", 0)
+                console.log("---------------------------------")
+            }
         }
     }
 
