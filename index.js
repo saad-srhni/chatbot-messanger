@@ -41,7 +41,7 @@ app.post('/webhook', function (req, res) {
             if (msg['message']['attachments']['type'] == 'image') {
                 sendText(idsender, "Je ne sais pas traiter ce type de demande", 0)
                 console.log("---------------------------------")
-            }
+            } else console.log("---------====================------")
         }
     }
 
