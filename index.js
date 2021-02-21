@@ -3,7 +3,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const request = require('request');
-const { response } = require('express');
 
 const app = express();
 
@@ -25,7 +24,6 @@ app.get('/webhook', function (req, res) {
 })
 
 app.post('/webhook', function (req, res) {
-    console.log(req.body.entry[0].messaging)
     let idsender = req.body.entry[0].messaging[0].sender.id;
     let msg = req.body.entry[0].messaging[0];
     if (msg['message']) {
